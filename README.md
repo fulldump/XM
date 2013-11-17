@@ -12,12 +12,12 @@ Es una simplifiación de XML, de ahí el nombre. La simplifiación consiste en t
 * La librería no tiene la potencia de estructuración ni de búsquedas que proporciona XML
 
 
-# Limitaciones de la versión actual #
+## Limitaciones de la versión actual ##
 
 No existen caracteres de escape, para el símbolo <, por lo tanto, no se pueden almacenar cadenas que contengan dicho símbolo.
 
 
-# Ejemplo típico de uso #
+## Ejemplo típico de uso ##
 
 Para cargar un fichero debemos hacer lo siguiente:
 
@@ -31,7 +31,7 @@ fclose(f);
 int val = xm->getAttribute("ATTR_1")-> ... ->getAttribute("ATTR_N")->getInt();
 ```
 
-# Ejemplo: Usando varios tipos #
+## Ejemplo: Usando varios tipos ##
 
 Supongamos que nuestro archivo 'data.xm' contiene lo siguiente:
 
@@ -57,7 +57,7 @@ AnsiString nombre = xm->getAttribute("PERSONA")->getAttribute("NOMBRE")->getStri
 double estatura = xm->getAttribute("PERSONA")->getAttribute("ESTATURA")->getDouble();
 ```
 
-# Ejemplo: Usar listas #
+## Ejemplo: Usar listas ##
 
 Cuando tenemos varios tags con el mismo nombre al mismo nivel, el método 'getAttribute' sólo devuelve el último de todos. Para poder recorrerlos todos deberemos utilizar el atributo público 'children'. Este atributo es una lista de otros objetos XM.
 
@@ -96,7 +96,7 @@ for (it = my_list->begin(); it != my_list->end(); it++) {
 }
 ```
 
-# Extender XMlize: toXM y fromXM #
+## Extender XMlize: toXM y fromXM ##
 
 Aunque podemos utilizar XM directamente, cuando tenemos objetos es muy cómodo extender la clase virtual XMlize que contiene dos métodos:
 
@@ -165,7 +165,7 @@ for (it = my_list->begin(); it != my_list->end(); it++) {
 }
 ```
 
-# Licencia #
+## Licencia ##
 
 XM está publicado bajo licencia GPL v3.
 
