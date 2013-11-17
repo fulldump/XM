@@ -7,9 +7,9 @@ A simple way to store hierarchical data in a file
 
 Es una simplifiación de XML, de ahí el nombre. La simplifiación consiste en tres puntos:
 
-# Los tags no tienen atributos
-# Un tag no puede contener en su interior cadenas y otros tags al mismo tiempo.
-# La librería no tiene la potencia de estructuración ni de búsquedas que proporciona XML
+* Los tags no tienen atributos
+* Un tag no puede contener en su interior cadenas y otros tags al mismo tiempo.
+* La librería no tiene la potencia de estructuración ni de búsquedas que proporciona XML
 
 
 # Limitaciones de la versión actual #
@@ -21,7 +21,7 @@ No existen caracteres de escape, para el símbolo <, por lo tanto, no se pueden 
 
 Para cargar un fichero debemos hacer lo siguiente:
 
-'''
+```
 // Primero abrimos el archivo
 FILE *f = fopen("datos.xm", "r+");
 XM *xm = XM::read(f);
@@ -29,23 +29,23 @@ fclose(f);
 
 // Accedemos a la estructura de datos de la siguiente forma:
 int val = xm->getAttribute("ATTR_1")-> ... ->getAttribute("ATTR_N")->getInt();
-'''
+```
 
 # Ejemplo: Usando varios tipos #
 
 Supongamos que nuestro archivo 'data.xm' contiene lo siguiente:
 
-'''
+```
 <PERSONA>
     <EDAD>76</EDAD>
     <NOMBRE>Federico García de Todos los Santos</NOMBRE>
     <ESTATURA>1.76</ESTATURA>
 </PERSONA>
-'''
+```
 
 Para obtener la información debemos abrir el archivo y obtener los campos de esta forma:
 
-'''
+```
 // Abrimos el archivo
 FILE *f = fopen("datos.xm", "r+");
 XM *xm = XM::read(f);
@@ -55,7 +55,7 @@ fclose(f);
 int edad = xm->getAttribute("PERSONA")->getAttribute("EDAD")->getInt();
 AnsiString nombre = xm->getAttribute("PERSONA")->getAttribute("NOMBRE")->getString();
 double estatura = xm->getAttribute("PERSONA")->getAttribute("ESTATURA")->getDouble();
-'''
+```
 
 # Ejemplo: Usar listas #
 
@@ -63,7 +63,7 @@ Cuando tenemos varios tags con el mismo nombre al mismo nivel, el método 'getAt
 
 Supongamos que en este caso tenemos un archivo 'data.xm' con la información de tres personas:
 
-'''
+```
 <PERSONA>
     <EDAD>76</EDAD>
     <NOMBRE>Federico García de Todos los Santos</NOMBRE>
@@ -79,11 +79,11 @@ Supongamos que en este caso tenemos un archivo 'data.xm' con la información de 
     <NOMBRE>Pedrito del Río Mesa</NOMBRE>
     <ESTATURA>0.46</ESTATURA>
 </PERSONA>
-'''
+```
 
 Para recuperar la lista completa de personas, simplemente recorremos la lista con un iterador:
 
-'''
+```
 list<XM*> * my_list = xm->children;
 list<XM*>::iterator it;
 XM * item;
@@ -94,7 +94,7 @@ for (it = my_list->begin(); it != my_list->end(); it++) {
     item->getAttribute("NOMBRE")->getString();
     item->getAttribute("ESTATURA")->getDouble();
 }
-'''
+```
 
 # Extender XMlize: toXM y fromXM #
 
@@ -111,18 +111,18 @@ Supongamos que estamos trabajando con la clase Persona, y ésta tiene los 3 atri
 
 La clase, sin los getters y setters, quedaría algo así:
 
-'''
+```
 class Persona {
 private:
     int _edad;
     AnsiString _nombre;
     double _estatura;
 };
-'''
+```
 
 Ahora extendemos de XMlize y añadimos los métodos toXM y fromXM:
 
-'''
+```
 class Persona:XMlize {
 public:
     AnsiString toXM();
@@ -150,11 +150,11 @@ Persona* Persona::fromXM(XM*xm) {
     p->_estatura = xm->getAttribute("ESTATURA")->getDouble();
     return p;
 }
-'''
+```
 
 De esta forma, para cargar la lista de personas del ejemplo anterior sólo debemos hacer:
 
-'''
+```
 list<XM*> * my_list = xm->children;
 list<XM*>::iterator it;
 XM * item;
@@ -163,7 +163,7 @@ for (it = my_list->begin(); it != my_list->end(); it++) {
     item = *it;
     p = Persona::fromXM(item);
 }
-'''
+```
 
 # Licencia #
 
